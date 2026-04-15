@@ -104,18 +104,18 @@ def openSnapshot(
         fnames = get_fnames(snapdir,snapnum,'') if fnames is None else fnames
 
     ## split off chimes keys, if necessary
-    if keys_to_extract is not None:
-        popped = 0
-        for i,key in enumerate(keys_to_extract):
-            ## if the key was put into keys_to_extract instead of chimes_key
-            ##  which is a uSER ERROR(!!)
-            if key in chimes_dict or 'Abundance' in key:
-            ## transfer the key to the chimes_keys, WHERE IT BELONGS
-                ckey = keys_to_extract.pop(i-popped)
-                if 'Abundance' in ckey:
-                    ckey = ckey[:-len('Abundance')]
-                chimes_keys+=[ckey]
-                popped+=1
+    # if keys_to_extract is not None:
+    #     popped = 0
+    #     for i,key in enumerate(keys_to_extract):
+    #         ## if the key was put into keys_to_extract instead of chimes_key
+    #         ##  which is a uSER ERROR(!!)
+    #         if key in chimes_dict or 'Abundance' in key:
+    #         ## transfer the key to the chimes_keys, WHERE IT BELONGS
+    #             ckey = keys_to_extract.pop(i-popped)
+    #             if 'Abundance' in ckey:
+    #                 ckey = ckey[:-len('Abundance')]
+    #             chimes_keys+=[ckey]
+    #             popped+=1
     
     new_dictionary = {}
 
@@ -246,13 +246,13 @@ def openSnapshot(
         ## remove the keys in temperature keys that are not in keys_to_extract, if it is not None
         ##  in case we wanted the metallicity and the temperature, but not the electron abundance 
         ##  and internal energy, for instance
-        subtract_set = set(temperature_keys) if keys_to_extract is None else set(keys_to_extract)
-        for key in (set(temperature_keys) - subtract_set):
-            try:
-                new_dictionary.pop(key)
-            except KeyError:
-                ## well it wasn't in there anyway!
-                pass
+        # subtract_set = set(temperature_keys) if keys_to_extract is None else set(keys_to_extract)
+        # for key in (set(temperature_keys) - subtract_set):
+        #     try:
+        #         new_dictionary.pop(key)
+        #     except KeyError:
+        #         ## well it wasn't in there anyway!
+        #         pass
     
     ## get stellar ages if this is a star particle dataset
     if ( (ptype in [4] + [2,3]*(not cosmological)) and 

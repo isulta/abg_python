@@ -516,6 +516,8 @@ def load_AHF(
     for name in names_to_read[names_to_read.index('Rvir')+1:]:
         if name == 'Rstar0.5': 
             unit_fact = length_unit_fact
+        elif name == 'Mvir':
+            unit_fact = 1
         else:
             unit_fact = 1
             print(name,'does not have units')

@@ -263,8 +263,10 @@ def addColorbar(
         tick_labels= [my_log_formatter(tick,None) for tick in ticks]
     else:
         from matplotlib.colors import Normalize as norm
-        ticks = np.linspace(vmin,vmax,5,endpoint=True)
-        tick_labels= ["%.2f" % tick for tick in ticks]
+        # ticks = np.linspace(vmin,vmax,5,endpoint=True)
+        ticks = np.arange(vmin, vmax+0.5/2, 0.5)
+        # tick_labels= ["%.2f" % tick for tick in ticks]
+        tick_labels= ["{:g}".format(tick) for tick in ticks]
     
     if tick_tuple is not None:
         ticks,tick_labels = tick_tuple
@@ -275,7 +277,7 @@ def addColorbar(
     cur_size = fig.get_size_inches()*fig.dpi        
     bbox = ax.get_position()
     extents = bbox.extents
-    offset = 10
+    offset = 85
     if span_full_figure:
         for ax in fig.get_axes():
             bbox = ax.get_position()
@@ -1147,12 +1149,12 @@ def place_text(ax,percentage):
     return foo
 
 try: import palettable
-except: print("palettable colormaps are not installed")
+except: pass#print("palettable colormaps are not installed")
 try:
     from pfh_colormaps import load_my_custom_color_tables
     load_my_custom_color_tables()
 except:
-    print("don't have phil's colormaps")
+    pass#print("don't have phil's colormaps")
 
 def get_cmap(cmap_name):
     try: cmap = plt.get_cmap(cmap_name)
